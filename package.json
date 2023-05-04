@@ -1,6 +1,6 @@
 {
   "name": "react-reusable-modal",
-  "version": "1.0.3",
+  "version": "1.0.2",
   "private": false,
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -19,7 +19,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prepare": "rm -rf dist && mkdir dist && tsc"
+    "prepare": "rm -rf dist && mkdir dist && tsc && cp src/styles.css dist"
   },
   "eslintConfig": {
     "extends": [
