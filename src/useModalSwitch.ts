@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react';
 
 const useModalSwitch = (initState?: boolean) => {
   const [isModalOpen, setModalState] = useState(initState || false);
+  const [openWhenInitRender, setOpenWhenInitRender] = useState(isModalOpen);
 
   useEffect(() => {
-    if (isModalOpen) {
+    if (initState) {
       document.body.appendChild(modalRoot);
     }
   });
@@ -16,6 +17,11 @@ const useModalSwitch = (initState?: boolean) => {
     return root;
   };
   const [modalRoot] = useState<HTMLElement>(getModalRoot());
+
+  if (openWhenInitRender) {
+    document.body.appendChild(modalRoot);
+    setOpenWhenInitRender(false);
+  }
 
   const openModal = () => {
     if (!modalRoot || document.body.contains(modalRoot)) return;
