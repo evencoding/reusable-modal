@@ -1,15 +1,17 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const useModalSwitch = (initState?: boolean) => {
   const [isModalOpen, setModalState] = useState(initState || false);
 
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.appendChild(modalRoot);
+    }
+  });
+
   const getModalRoot = () => {
     const root = document.createElement('div');
     root.id = 'modal-root';
-
-    if (isModalOpen) {
-      document.body.appendChild(root);
-    }
 
     return root;
   };
