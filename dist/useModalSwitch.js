@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 var useModalSwitch = function (initState) {
     var _a = useState(initState || false), isModalOpen = _a[0], setModalState = _a[1];
+    useEffect(function () {
+        if (isModalOpen) {
+            document.body.appendChild(modalRoot);
+        }
+    });
     var getModalRoot = function () {
         var root = document.createElement('div');
         root.id = 'modal-root';
-        if (isModalOpen) {
-            document.body.appendChild(root);
-        }
         return root;
     };
     var modalRoot = useState(getModalRoot())[0];
