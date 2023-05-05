@@ -16,7 +16,7 @@ import useModalSwitch from './useModalSwitch';
 import './styles.css';
 var Modal = function (_a) {
     var trigger = _a.trigger, children = _a.children, options = _a.options;
-    var _b = useModalSwitch(options === null || options === void 0 ? void 0 : options.initState), isModalOpen = _b.isModalOpen, openModal = _b.openModal, closeModal = _b.closeModal;
+    var _b = useModalSwitch(options === null || options === void 0 ? void 0 : options.initState), modalRoot = _b.modalRoot, isModalOpen = _b.isModalOpen, openModal = _b.openModal, closeModal = _b.closeModal;
     useEffect(function () {
         window.addEventListener('keyup', handleKeyDown);
         return function () { return window.removeEventListener('keyup', handleKeyDown); };
@@ -35,6 +35,7 @@ var Modal = function (_a) {
         }
     };
     return (_jsxs("div", { children: [trigger && React.cloneElement(trigger, { onClick: openModal }), isModalOpen &&
+                modalRoot &&
                 ReactDOM.createPortal(_jsxs(_Fragment, { children: [_jsx("div", { className: "modal-background", onClick: closeModal }), _jsx("div", __assign({ className: "modal ".concat((options === null || options === void 0 ? void 0 : options.position) || 'middle'), onClick: closeIf }, { children: children }))] }), document.querySelector('#modal-root'))] }));
 };
 export default Modal;
