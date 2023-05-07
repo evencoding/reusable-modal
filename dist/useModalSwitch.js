@@ -1,17 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 var useModalSwitch = function (initState) {
     var _a = useState(initState || false), isModalOpen = _a[0], setModalState = _a[1];
+    var _b = useState(isModalOpen), shouldOpenModal = _b[0], setShouldOpenModal = _b[1];
     var getModalRoot = function () {
         var root = document.createElement('div');
         root.id = 'modal-root';
         return root;
     };
     var modalRoot = useState(getModalRoot())[0];
-    useEffect(function () {
-        if (initState) {
-            document.body.appendChild(modalRoot);
-        }
-    });
     var openModal = function () {
         if (!modalRoot || document.body.contains(modalRoot))
             return;
@@ -26,6 +22,10 @@ var useModalSwitch = function (initState) {
         document.body.classList.remove('overflow-hidden');
         setModalState(false);
     };
-    return { modalRoot: modalRoot, isModalOpen: isModalOpen, openModal: openModal, closeModal: closeModal };
+    if (shouldOpenModal) {
+        openModal();
+        setShouldOpenModal(false);
+    }
+    return { isModalOpen: isModalOpen, openModal: openModal, closeModal: closeModal };
 };
 export default useModalSwitch;
