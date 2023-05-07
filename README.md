@@ -1,46 +1,85 @@
-# Getting Started with Create React App
+# 모달 (Modal)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+이 패키지는 모달 기능을 제공하는 React 컴포넌트입니다
 
-## Available Scripts
+## 설치
 
-In the project directory, you can run:
+npm을 사용하여 패키지를 설치합니다.
 
-### `npm start`
+```bash
+npm i react-reusable-modal
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 사용법
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Modal 컴포넌트
 
-### `npm test`
+Modal 컴포넌트는 특정 트리거를 클릭하여 모달을 열고 닫을 수 있는 기능을 제공합니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```jsx
+import React from 'react';
+import { Modal } from 'modal-package';
 
-### `npm run build`
+const App = () => {
+  return (
+    <div>
+      <Modal trigger={<button>모달 열기</button>}>
+        <h2>안녕하세요!</h2>
+        <p>모달 컨텐츠입니다.</p>
+      </Modal>
+    </div>
+  );
+};
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+export default App;
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### ModalOptions
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+ModalOptions는 모달의 옵션을 설정할 수 있는 인터페이스입니다.
 
-### `npm run eject`
+| 속성                               | 타입                   | 설명                                                          |
+| ---------------------------------- | ---------------------- | ------------------------------------------------------------- |
+| position                           | 'middle' 또는 'bottom' | 모달의 위치를 설정합니다. 기본값은 'middle'입니다.            |
+| initState                          | boolean                | 모달의 초기 상태를 설정합니다.                                |
+| 기본값은 false입니다. closeTrigger | string                 | 모달을 닫는 트리거로 사용할 요소의 CSS 클래스명을 설정합니다. |
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### 사용 예시
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```jsx
+import React from 'react';
+import { Modal } from 'modal-package';
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+const App = () => {
+  return (
+    <div>
+      <Modal
+        trigger={<button>모달 열기</button>}
+        options={{ position: 'bottom', closeTrigger: 'close-button' }}
+      >
+        <h2>안녕하세요!</h2>
+        <p>모달 컨텐츠입니다.</p>
+        <button className="close-button">닫기</button>
+      </Modal>
+    </div>
+  );
+};
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+export default App;
+```
 
-## Learn More
+## 컴포넌트 구성
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Modal
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Modal 컴포넌트는 다음과 같은 속성을 가집니다.
+
+| 속성     | 타입           | 필수 | 설명                                    |
+| -------- | -------------- | ---- | --------------------------------------- |
+| trigger  | React 엘리먼트 |      | 모달을 열기 위한 트리거 엘리먼트입니다. |
+| options  | ModalOptions   |      | 모달의 옵션을 설정하는 객체입니다.      |
+| children | ReactNode      |      | 모달 내부에 표시될 컨텐츠입니다.        |
+
+## 라이센스
+
+이 패키지는 MIT 라이선스에 따라 라이선스가 부여됩니다.
