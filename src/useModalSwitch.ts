@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const useModalSwitch = (initState?: boolean) => {
   const [isModalOpen, setModalState] = useState(initState || false);
+  const [shouldOpenModal, setShouldOpenModal] = useState(isModalOpen);
 
   const getModalRoot = () => {
     const root = document.createElement('div');
@@ -10,12 +11,6 @@ const useModalSwitch = (initState?: boolean) => {
     return root;
   };
   const [modalRoot] = useState<HTMLElement>(getModalRoot());
-
-  useEffect(() => {
-    if (initState) {
-      document.body.appendChild(modalRoot);
-    }
-  });
 
   const openModal = () => {
     if (!modalRoot || document.body.contains(modalRoot)) return;
@@ -35,7 +30,12 @@ const useModalSwitch = (initState?: boolean) => {
     setModalState(false);
   };
 
-  return { modalRoot, isModalOpen, openModal, closeModal };
+  if (shouldOpenModal) {
+    openModal();
+    setShouldOpenModal(false);
+  }
+
+  return { isModalOpen, openModal, closeModal };
 };
 
 export default useModalSwitch;

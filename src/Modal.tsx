@@ -18,7 +18,7 @@ interface ModalProps {
 }
 
 const Modal = ({ trigger, children, options }: ModalProps) => {
-  const { modalRoot, isModalOpen, openModal, closeModal } = useModalSwitch(options?.initState);
+  const { isModalOpen, openModal, closeModal } = useModalSwitch(options?.initState);
 
   useEffect(() => {
     window.addEventListener('keyup', handleKeyDown);
@@ -42,7 +42,6 @@ const Modal = ({ trigger, children, options }: ModalProps) => {
     <div>
       {trigger && React.cloneElement(trigger, { onClick: openModal })}
       {isModalOpen &&
-        modalRoot &&
         ReactDOM.createPortal(
           <>
             <div className="modal-background" onClick={closeModal} />
