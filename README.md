@@ -12,74 +12,81 @@ npm i react-reusable-modal
 
 ## 사용법
 
-### Modal 컴포넌트
-
-Modal 컴포넌트는 특정 트리거를 클릭하여 모달을 열고 닫을 수 있는 기능을 제공합니다.
+라이브러리에서 `useModal`훅을 import하세요:
 
 ```jsx
-import React from 'react';
-import { Modal } from 'modal-package';
+import { useModal } from 'react-reusable-modal';
+```
 
-const App = () => {
+`useModal`훅을 사용하여 모달 상태를 관리하고 컴포넌트에서 모달을 렌더링할 수 있습니다.
+
+```jsx
+const MyComponent = () => {
+  const { isModalOpen, openModal, closeModal, Modal } = useModal();
+
   return (
     <div>
-      <Modal trigger={<button>모달 열기</button>}>
-        <h2>안녕하세요!</h2>
-        <p>모달 컨텐츠입니다.</p>
-      </Modal>
+      <button onClick={openModal}>모달 열기</button>
+
+      {isModalOpen && (
+        <Modal>
+          <h2>모달 내용</h2>
+          <p>이것은 모달의 내용입니다.</p>
+          <button onClick={closeModal}>모달 닫기</button>
+        </Modal>
+      )}
     </div>
   );
 };
-
-export default App;
 ```
 
-### ModalOptions
+### useModal
 
-ModalOptions는 모달의 옵션을 설정할 수 있는 인터페이스입니다.
+`useModal`훅은 다음과 같은 속성과 메서드를 제공합니다.
 
-| 속성         | 타입                   | 설명                                                          |
-| ------------ | ---------------------- | ------------------------------------------------------------- |
-| position     | 'middle' 또는 'bottom' | 모달의 위치를 설정합니다. 기본값은 'middle'입니다.            |
-| initState    | boolean                | 모달의 초기 상태를 설정합니다. 기본값은 false입니다.          |
-| closeTrigger | string                 | 모달을 닫는 트리거로 사용할 요소의 CSS 클래스명을 설정합니다. |
-
-### 사용 예시
-
-```jsx
-import React from 'react';
-import { Modal } from 'modal-package';
-
-const App = () => {
-  return (
-    <div>
-      <Modal
-        trigger={<button>모달 열기</button>}
-        options={{ position: 'bottom', closeTrigger: 'close-button' }}
-      >
-        <h2>안녕하세요!</h2>
-        <p>모달 컨텐츠입니다.</p>
-        <button className="close-button">닫기</button>
-      </Modal>
-    </div>
-  );
-};
-
-export default App;
-```
-
-## 컴포넌트 구성
+- `isModalOpen` (boolean): 현재 모달이 열려 있는지 여부를 나타냅니다.
+- `openModal` (function): 모달을 엽니다.
+- `closeModal` (function): 모달을 닫습니다.
+- `Modal` (component): 모달을 렌더링합니다.
 
 ### Modal
 
-Modal 컴포넌트는 다음과 같은 속성을 가집니다.
+`Modal` 컴포넌트에 options 속성을 적용할 수 있습니다.
 
-| 속성     | 타입           | 필수 | 설명                                    |
-| -------- | -------------- | ---- | --------------------------------------- |
-| trigger  | React 엘리먼트 |      | 모달을 열기 위한 트리거 엘리먼트입니다. |
-| options  | ModalOptions   |      | 모달의 옵션을 설정하는 객체입니다.      |
-| children | ReactNode      |      | 모달 내부에 표시될 컨텐츠입니다.        |
+```ts
+interface ModalProps {
+  options?: ModalOptions;
+}
 
-## 라이센스
+interface ModalOptions {
+  position?: 'middle' | 'bottom';
+}
+```
 
-이 패키지는 MIT 라이선스에 따라 라이선스가 부여됩니다.
+```tsx
+const MyComponent = () => {
+  const { isModalOpen, openModal, closeModal, Modal } = useModal();
+
+  const modalOptions = {
+    position: 'bottom',
+  } as const;
+
+  return (
+    <div>
+      <button onClick={openModal}>모달 열기</button>
+
+      {isModalOpen && (
+        <Modal options={modalOptions}>
+          <h2>모달 내용</h2>
+          <p>이것은 모달의 내용입니다.</p>
+          <button onClick={closeModal}>모달 닫기</button>
+        </Modal>
+      )}
+    </div>
+  );
+};
+```
+
+- position
+  - middle: 모달의 위치를 중앙에 배치합니다. (Default)
+  - bottom: 모달의 위치를 하단에 배치합니다.
