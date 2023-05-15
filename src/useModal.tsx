@@ -2,7 +2,7 @@ import { PropsWithChildren, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 import './styles.css';
-import { useModalActions, useModalValue } from './context/ModalContext';
+import { useModalActions, useModalValue } from './ModalContext';
 
 interface ModalOptions {
   position?: 'middle' | 'bottom';
