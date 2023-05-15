@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useModal } from '../useModal';
 
 import Card from './Card';
 
@@ -12,8 +13,10 @@ export const StyledCardPreview = styled.div`
 `;
 
 const CardPreview = () => {
+  const { openModal } = useModal();
+
   return (
-    <StyledCardPreview>
+    <StyledCardPreview onClick={openModal}>
       <Card />
     </StyledCardPreview>
   );

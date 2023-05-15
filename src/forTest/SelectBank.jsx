@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { useModal } from '../useModal';
 
 import * as styled from './SelectBank.styled';
 
@@ -49,12 +49,13 @@ const SelectBank = () => {
   //   const onClick = ({ currentTarget: { id } }: MouseEvent<HTMLDivElement>) => {
   //     setCardInfo((prev) => ({ ...prev, bank: id }));
   //   };
+  const { closeModal } = useModal();
 
   return (
     <styled.SelectBank>
       <styled.Banks>
         {Object.entries(BANKS).map(([key, bank]) => (
-          <styled.Bank key={key} id={key} className="bank">
+          <styled.Bank key={key} id={key} onClick={() => closeModal()} className="bank">
             <styled.Icon>
               {/* <img src={bank.logo} alt={`${bank.name}_logo`} /> */}
               <div>O</div>
